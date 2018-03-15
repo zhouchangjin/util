@@ -4,10 +4,13 @@ import java.util.Date;
 
 public class ApacheLog {
 	
+	String domainName;
+
 	String ipAddress;
-	Date d;
+	Date time;
 	String method;
 	String resource;
+	String fullUrl;
 	String httpVersion;
 	String responceCode;
 	int bytesCount;
@@ -19,11 +22,18 @@ public class ApacheLog {
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
-	public Date getD() {
-		return d;
+
+	public Date getTime() {
+		return time;
 	}
-	public void setD(Date d) {
-		this.d = d;
+	public void setTime(Date time) {
+		this.time = time;
+	}
+	public String getFullUrl() {
+		return fullUrl;
+	}
+	public void setFullUrl(String fullUrl) {
+		this.fullUrl = fullUrl;
 	}
 	public String getMethod() {
 		return method;
@@ -66,6 +76,13 @@ public class ApacheLog {
 	}
 	public void setBrowser(String browser) {
 		this.browser = browser;
+	}
+	
+	public String getDomainName() {
+		return domainName;
+	}
+	public void setDomainName(String domainName) {
+		this.domainName = domainName;
 	}
 	
 
