@@ -37,11 +37,16 @@ public class ApacheLogReader {
 				String methodStr=parts[5].replace("\"", "");
 				String dateStr=datePart1+" "+datePart2;
 				Date time=sdf.parse(dateStr);
-				if(methodStr.equals("-")) {
+				if(methodStr.equals("-") || parts[5].lastIndexOf("\"")>1 || 
+						(!methodStr.equals("GET") && !methodStr.equals("POST") 
+								&& !methodStr.equals("HEAD") && !methodStr.equals("PUT")
+								&& !methodStr.equals("OPTIONS") && !methodStr.equals("DELETE ") 
+								&& !methodStr.equals("TRACE") && !methodStr.equals("CONNECT"))) {
 					String code=parts[6];
 					log.setIpAddress(ip);
 					log.setResponceCode(code);
 					log.setTime(time);
+					log.setMethod(methodStr);
 					list.add(log);
 					continue;
 				
@@ -124,7 +129,7 @@ public class ApacheLogReader {
 	}
 	
 	public static void main(String args[]) {
-		output("c:/2018_03_12_51meiyu.cn-access.log","c:/log12.csv","www.51meiyu.cn");
+		output("c:/2018_03_01_51meiyu.cn-access.log","c:/log1.csv","www.51meiyu.cn");//"c:/2018_03_09_51meiyu.cn-access.log","c:/log9-1.csv","www.51meiyu.cn");
 		
 	}
 
