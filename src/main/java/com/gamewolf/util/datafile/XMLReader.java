@@ -1,7 +1,11 @@
 package com.gamewolf.util.datafile;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 import org.dom4j.Attribute;
 import org.dom4j.Document;
@@ -56,7 +60,23 @@ public class XMLReader {
 	
 	public static void main(String args[]) {
 		
-		System.out.println(loadXMLFile("c:/sitemaps.xml").toString());
+		XMLNode node=loadXMLFile("c:/sitemaps.xml");
+		List<XMLNode> nodes=node.getNodes("url");
+		File f=new File("c:/urls.txt");
+		try {
+			BufferedWriter bw=new BufferedWriter(new FileWriter(f));
+			for(int i=0;i<nodes.size();i++) {
+				String url=nodes.get(i).getNode("loc").getValue();
+				bw.write(url);
+				bw.newLine();
+			}
+			bw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 
