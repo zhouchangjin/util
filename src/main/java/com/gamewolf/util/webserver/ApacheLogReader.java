@@ -71,11 +71,11 @@ public class ApacheLogReader {
 				log.setBytesCount(bytesCnt);
 				log.setDomainName(domainName);
 				log.setHttpVersion(httpVersion);
-				if(length>9) {
+				if(length>10) {
 					String refer=parts[10].replace("\"", "");
 					log.setRefer(refer);
 				}
-				if(length>10) {
+				if(length>11) {
 					String browser=parts[11];
 					int start=line.indexOf(browser);
 					String browserStr=line.substring(start);
@@ -129,7 +129,7 @@ public class ApacheLogReader {
 	}
 	
 	public static void main(String args[]) {
-		output("c:/2018_03_21_51meiyu.cn-access.log","c:/log180321.csv","www.51meiyu.cn");//"c:/2018_03_09_51meiyu.cn-access.log","c:/log9-1.csv","www.51meiyu.cn");
+		output("c:/2018_03_23_51meiyu.cn-access.log","c:/log180323.csv","www.51meiyu.cn");//"c:/2018_03_09_51meiyu.cn-access.log","c:/log9-1.csv","www.51meiyu.cn");
 		
 	}
 
