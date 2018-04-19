@@ -129,7 +129,7 @@ public class ApacheLogReader {
 	}
 	
 	public static void main(String args[]) {
-		output("c:/2018_03_23_51meiyu.cn-access.log","c:/log180323.csv","www.51meiyu.cn");//"c:/2018_03_09_51meiyu.cn-access.log","c:/log9-1.csv","www.51meiyu.cn");
+		output("c:/2018_03_25_51meiyu.cn-access.log","c:/log180325.csv","www.51meiyu.cn");//"c:/2018_03_09_51meiyu.cn-access.log","c:/log9-1.csv","www.51meiyu.cn");
 		
 	}
 
