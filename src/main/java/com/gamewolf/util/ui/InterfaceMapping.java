@@ -2,15 +2,17 @@ package com.gamewolf.util.ui;
 
 public class InterfaceMapping {
 	
-	String widgetType;
+	InterfaceType widgetType;
 	String className;
 	String parameterName;
-	public String getWidgetType() {
-		return widgetType;
+	String parameterLabel;
+	public String getParameterLabel() {
+		return parameterLabel;
 	}
-	public void setWidgetType(String widgetType) {
-		this.widgetType = widgetType;
+	public void setParameterLabel(String parameterLabel) {
+		this.parameterLabel = parameterLabel;
 	}
+
 	public String getClassName() {
 		return className;
 	}
@@ -23,7 +25,12 @@ public class InterfaceMapping {
 	public void setParameterName(String parameterName) {
 		this.parameterName = parameterName;
 	}
-	
+	public InterfaceType getWidgetType() {
+		return widgetType;
+	}
+	public void setWidgetType(InterfaceType widgetType) {
+		this.widgetType = widgetType;
+	}
 	
 
 }

@@ -8,8 +8,7 @@ public interface ParameterUserInterfaceMapping {
 	
 	public List<String> getFunctionList();
 	
-	
-	public void addFunction(String functionName);
+	public InterfaceMapping getParameter(String functionName,String parametername);
 	
 	public void addParameter(String functionName,String parameterName,InterfaceMapping map);
 	
