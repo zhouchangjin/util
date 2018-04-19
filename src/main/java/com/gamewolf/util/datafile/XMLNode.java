@@ -9,7 +9,7 @@ public class XMLNode {
 	
 	String nodeName;
 	HashMap<String, List<XMLNode>> children;
-	String value;
+	String value="";
 	HashMap<String,Object> attributes;
 	
 	public XMLNode() {
@@ -62,6 +62,39 @@ public class XMLNode {
 		}else {
 			return null;
 		}
+		
+	}
+	public String toXML() {
+		StringBuffer sb=new StringBuffer();
+		String intro="<"+this.getName();
+		Iterator<String> keyIt=this.attributes.keySet().iterator();
+		while(keyIt.hasNext()) {
+			String key=keyIt.next();
+			String value=this.attributes.get(key).toString();
+			intro+=" "+key+"='"+value+"'";
+		}
+		intro+=">";
+		String end="</"+this.getName()+">";
+		sb.append(intro);
+		String innerText=""+System.lineSeparator();
+		if(this.children.keySet().isEmpty()) {
+			innerText=this.value;
+		}else {
+			Iterator<String> it=this.children.keySet().iterator();
+			while(it.hasNext()) {
+				String key=it.next();
+				List<XMLNode> nodes=this.children.get(key);
+				for(XMLNode node:nodes) {
+					innerText+=node.toXML();
+					innerText+=System.lineSeparator();
+				}
+			}
+		}
+		sb.append(innerText);
+		sb.append(end);
+		
+		
+		return sb.toString();
 		
 	}
 	
