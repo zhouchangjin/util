@@ -4,11 +4,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.List;
 
 import com.gamewolf.util.datafile.XMLNode;
+import com.gamewolf.util.datafile.XMLSchemaHeader;
 
 public class UserInterfaceBuilder {
 	
@@ -37,50 +38,55 @@ public class UserInterfaceBuilder {
 		return defaultInf;
 	}
 	
-	public static void main(String args[]) {
-		ParameterUserInterfaceMapping puim=UserInterfaceBuilder.buildUIMapping(UserInterfaceBuilder.class);
+	public static void BuildJavaFX(Class claz,String outputFile) {
 		try {
-			
-			FileWriter fw=new FileWriter(new File("c:/tmp.fxml"));
-			BufferedWriter bw=new BufferedWriter(fw);
-			String line="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-			String importLine="<?import javafx.scene.control.*?>";
-			String importLine2="<?import java.lang.*?>"; 
-			String importLine3="<?import javafx.scene.layout.*?>";
-			String tabLine="<TabPane maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" minHeight=\"-Infinity\" minWidth=\"-Infinity\" prefHeight=\"400.0\" prefWidth=\"600.0\" tabClosingPolicy=\"UNAVAILABLE\" xmlns:fx=\"http://javafx.com/fxml/1\" xmlns=\"http://javafx.com/javafx/8\">";
-			String tabs="<tabs>";
-			bw.append(line);
-			bw.newLine();
-			bw.append(importLine);
-			bw.newLine();
-			bw.append(importLine2);
-			bw.newLine();
-			bw.append(importLine3);
-			bw.newLine();
-			bw.append(tabLine);
-			bw.newLine();
-			bw.append(tabs);
-			bw.newLine();
-			//////////////////////////////////////////////
-			XMLNode node=new XMLNode();
-			node.setName("Tab");
-			node.addAttribute("text", "tab1");
-			XMLNode cnt=new XMLNode();
-			cnt.setName("content");
-			cnt.setValue("");
-			//node.addNode("content", cnt);
-			bw.append(node.toXML());
-			bw.newLine();
-			
-			//////////////////////////////////////////////////
-			
-			bw.append("</tabs></TabPane>");
-			bw.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		ParameterUserInterfaceMapping puim=UserInterfaceBuilder.buildUIMapping(claz);
+		FileWriter fw=new FileWriter(new File(outputFile));
+		BufferedWriter bw=new BufferedWriter(fw);
+		bw.append(XMLSchemaHeader.header);
+		bw.newLine();
+		String importLine="<?import javafx.scene.control.*?>";
+		String importLine2="<?import java.lang.*?>"; 
+		String importLine3="<?import javafx.scene.layout.*?>";
+		bw.append(importLine);
+		bw.newLine();
+		bw.append(importLine2);
+		bw.newLine();
+		bw.append(importLine3);
+		bw.newLine();
+		XMLNode node=new XMLNode("BorderPane");
+		node.addAttribute("maxHeight", "-Infinity");
+		node.addAttribute("maxWidth", "-Infinity");
+		node.addAttribute("minHeight", "-Infinity");
+		node.addAttribute("minWidth", "-Infinity");
+		node.addAttribute("prefHeight", "400.0");
+		node.addAttribute("prefWidth", "600.0");
+		//node.addAttribute("tabClosingPolicy", "UNAVAILABLE");
+		node.addAttribute("xmlns:fx", "http://javafx.com/fxml/1");
+		node.addAttribute("xmlns", "http://javafx.com/javafx/8");
+		XMLNode tabPane=node.createChild("center").createChild("TabPane");
+		XMLNode tabsNode=new XMLNode();
+		tabsNode.setName("tabs");
+		tabPane.addNode("tabs", tabsNode);
+		List<String> list=puim.getFunctionList();
+		for(String name:list) {
+			XMLNode tabNode=new XMLNode();
+			tabNode.setName("Tab");
+			tabNode.addAttribute("text", name);
+			tabsNode.addNode("Tab", tabNode);
+		}
+		bw.append(node.toXML());
+		bw.newLine();
+		bw.close();
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public static void main(String args[]) {
+		//ParameterUserInterfaceMapping puim=UserInterfaceBuilder.buildUIMapping(UserInterfaceBuilder.class);
+		UserInterfaceBuilder.BuildJavaFX(UserInterfaceBuilder.class, "c:/tes12.fxml");
 		
 	}
 

@@ -17,6 +17,12 @@ public class XMLNode {
 		attributes=new HashMap<String,Object>();
 	}
 	
+	public XMLNode(String name) {
+		this.nodeName=name;
+		children=new HashMap<String,List<XMLNode>>();
+		attributes=new HashMap<String,Object>();
+	}
+	
 	
 	public void setName(String name) {
 		this.nodeName=name;
@@ -96,6 +102,18 @@ public class XMLNode {
 		
 		return sb.toString();
 		
+	}
+	
+	public static XMLNode createNode(String name) {
+		XMLNode node=new XMLNode();
+		node.setName(name);
+		return node;
+	}
+	
+	public XMLNode createChild(String name) {
+		XMLNode node=XMLNode.createNode(name);
+		addNode(name, node);
+		return node;
 	}
 	
 	public String toString() {
