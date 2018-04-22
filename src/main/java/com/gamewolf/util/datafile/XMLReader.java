@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,6 +15,21 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 public class XMLReader {
+	
+	public static XMLNode parseXMLString(String fileCnt) {
+		XMLNode root=null;
+		  SAXReader reader = new SAXReader();
+	      try {
+			Document document = reader.read(new StringReader(fileCnt));
+			String rootName=document.getRootElement().getName();
+			root=parseElement(document.getRootElement());
+			
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return root;
+	}
 	
 	
 	public static XMLNode loadXMLFile(String file) {
