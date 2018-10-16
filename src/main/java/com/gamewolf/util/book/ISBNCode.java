@@ -27,7 +27,7 @@ public class ISBNCode {
 	}
 	
 	public static boolean IsbnValidation(String isbn) {
-		if(isbn.matches("[0-9]{13}")) {
+		if(isbn.matches("(978|979)[0-9]{10}")) {
 			String code12=isbn.substring(0, 12);
 			int last=check(code12);				
 			String code13=code12+last;
@@ -44,7 +44,7 @@ public class ISBNCode {
 	
 	public static void main(String args[]) {
 		System.out.println(check("978780746001"));
-		System.out.println(IsbnValidation("460015"));
+		System.out.println(IsbnValidation("A797805689905"));
 	}
 
 }
