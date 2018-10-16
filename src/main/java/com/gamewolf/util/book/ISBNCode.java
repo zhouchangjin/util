@@ -26,8 +26,25 @@ public class ISBNCode {
 		return result;
 	}
 	
+	public static boolean IsbnValidation(String isbn) {
+		if(isbn.matches("[0-9]{13}")) {
+			String code12=isbn.substring(0, 12);
+			int last=check(code12);				
+			String code13=code12+last;
+			if(!code13.equals(isbn)) {
+				return false;
+			}else {
+				return true;
+			}
+		}else {
+			return false;
+		}
+	}
+	
+	
 	public static void main(String args[]) {
 		System.out.println(check("978780746001"));
+		System.out.println(IsbnValidation("460015"));
 	}
 
 }
