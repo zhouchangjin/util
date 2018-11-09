@@ -41,6 +41,14 @@ public class ISBNCode {
 		}
 	}
 	
+	public static boolean isChinese(String isbn) {
+		if(isbn.startsWith("9787")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	
 	public static void main(String args[]) {
 		System.out.println(check("978780746001"));
