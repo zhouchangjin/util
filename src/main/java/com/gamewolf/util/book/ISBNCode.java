@@ -51,7 +51,7 @@ public class ISBNCode {
 	
 	
 	public static void main(String args[]) {
-		System.out.println(check("978780746001"));
+		System.out.println(check("978755022037"));
 		System.out.println(IsbnValidation("A797805689905"));
 	}
 
