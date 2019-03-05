@@ -13,7 +13,7 @@ public class ImageUtil {
 	
 	public void resizeImage(InputStream is, OutputStream os, int width,int height, String format) throws IOException{
 		  BufferedImage prevImage = ImageIO.read(is);
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
+		  BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
 	      Graphics graphics = image.createGraphics();
 	      graphics.drawImage(prevImage, 0, 0, width, height, null);
 	      ImageIO.write(image, format, os);
