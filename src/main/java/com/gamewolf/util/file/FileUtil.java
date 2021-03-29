@@ -78,6 +78,28 @@ public class FileUtil {
 		
 	}
 	
+	public static ArrayList<String> listFolders(String path,ArrayList<String> suffix){
+		
+		ArrayList<String> rfiles=new ArrayList<String>();
+		File f=new File(path);
+		if(f.isDirectory()) {
+			File[] files=f.listFiles();
+			for(File file:files) {
+				if(file.isFile()) {
+					String fileName=file.getName();
+					String parts[]=fileName.split("\\.");
+					if(parts.length>1) {
+						String suf=parts[parts.length-1];
+						if(suffix.contains(suf.toLowerCase())) {
+							rfiles.add(fileName);
+						}
+					}
+				}
+			}
+		}
+		return rfiles;
+	}
+	
 	/**
 	 * 
 	 * @param parent 搜索目录
@@ -103,9 +125,33 @@ public class FileUtil {
 		}
 	}
 	
+	private static void scanFolder(String parent,String relativePath,ArrayList<Pair<String,String>> result,ArrayList<String> suffix) {
+		String path=parent+relativePath;
+		ArrayList<String> subFolders=listSubFolders(path);
+		ArrayList<String> fileNames=listFolders(path, suffix);
+		if(subFolders.size()>0) {
+			for(String folderName:subFolders) {
+				String newRelativePath=relativePath+folderName+"/";
+				scanFolder(parent, newRelativePath,result,suffix);
+			}
+		}
+		for(String fileName:fileNames) {
+
+			Pair<String,String> pair=new Pair<String, String>(relativePath, fileName);
+			result.add(pair);
+		}
+		
+	}
+	
 	public static ArrayList<Pair<String,String>> scanFolder(String folder,String suffix) {
 		ArrayList<Pair<String, String>> list=new ArrayList<Pair<String,String>>();
 		scanFolder(folder, suffix,"/",list);
+		return list;
+	}
+	
+	public static ArrayList<Pair<String,String>> scanFolder(String folder,ArrayList<String> suffix){
+		ArrayList<Pair<String, String>> list=new ArrayList<Pair<String,String>>();
+		scanFolder(folder, "/", list, suffix);
 		return list;
 	}
 }
