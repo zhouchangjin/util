@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import javafx.util.Pair;
+import com.gamewolf.util.lang.Pair;
+
 
 public class TestFileUtil {
 	

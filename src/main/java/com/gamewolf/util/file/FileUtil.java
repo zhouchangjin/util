@@ -7,7 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javafx.util.Pair;
+import com.gamewolf.util.lang.Pair;
+
 
 public class FileUtil {
 	
